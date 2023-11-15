@@ -4,18 +4,12 @@ if (process.env.NODE_ENV !== 'production') {
 const MONGODB_ADMIN_OPTIONS = {
   database: process.env.MONGO_URI,
   db_options: {
-    native_parser: true,
-    poolSize: 5,
+    // native_parser: true,
     user: process.env.MONGO_USER,
-    pass: process.env.MONGO_PASSWORD,
-    promiseLibrary: global.Promise,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    keepAlive: true
+    pass: process.env.MONGO_PASSWORD
   }
 }
-module.exports = {
+export default {
   PORT: process.env.PORT,
   MONGODB_ADMIN_OPTIONS
 }

@@ -32,6 +32,6 @@ AdminSchema.virtual('id').get(function () {
   return this._id
 })
 
-UserSchema.set('toJSON', { virtuals: true })
+AdminSchema.set('toJSON', { virtuals: true })
 
 export default mongoose.model('admin', AdminSchema)

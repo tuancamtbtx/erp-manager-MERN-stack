@@ -5,8 +5,8 @@ import url from 'url'
 
 export default class Pagination {
   constructor (req, totalItem) {
-    const url_parts = url.parse(req.url, true)
-    const query = url_parts.query
+    const urlParts = url.URL(req.url, true)
+    const query = urlParts.query
     // Default page = 1
     this.currentPage = (query.page === undefined ? 1 : parseInt(query.page))
     // Default item_per_page = 10

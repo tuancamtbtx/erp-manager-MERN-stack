@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 const { Schema } = mongoose
-const AdminSchema = new Schema({
+const CategorySchema = new Schema({
   name: {
     type: String,
     required: true
@@ -20,10 +20,10 @@ const AdminSchema = new Schema({
   }
 })
 
-AdminSchema.virtual('id').get(function () {
+CategorySchema.virtual('id').get(function () {
   return this._id
 })
 
-UserSchema.set('toJSON', { virtuals: true })
+CategorySchema.set('toJSON', { virtuals: true })
 
-export default mongoose.model('admin', AdminSchema)
+export default mongoose.model('category', CategorySchema)

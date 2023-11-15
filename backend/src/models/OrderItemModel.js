@@ -1,30 +1,24 @@
 import mongoose from 'mongoose'
 
 const { Schema } = mongoose
-const OrderSchema = new Schema({
-  customer_id: {
+const OrderItemSchema = new Schema({
+  order_id: {
     type: Schema.ObjectId,
     required: true,
-    ref: 'customers'
+    ref: 'orders'
   },
-  status: {
+  product_id: {
+    type: Schema.ObjectId,
+    required: true
+  },
+  quantity: {
     type: Number,
     required: true
   },
-  orderItems: [
-    {
-        id: {
-            type: Schema.ObjectId,
-            required: true,
-            ref: 'order_items'
-        },
-    }
-  ],
-  amount: {
-    type: Number,
-    required: true
+  discount: {
+    type: Number
   },
-  profit: {
+  unit_cost: {
     type: Number,
     required: true
   },
@@ -38,10 +32,10 @@ const OrderSchema = new Schema({
   }
 })
 
-OrderSchema.virtual('id').get(function () {
+OrderItemSchema.virtual('id').get(function () {
   return this._id
 })
 
 OrderSchema.set('toJSON', { virtuals: true })
 
-export default mongoose.model('orders', OrderSchema)
+export default mongoose.model('order_items', OrderItemSchema)

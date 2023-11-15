@@ -1,7 +1,8 @@
-import ProductModel from '../models/ProductModel'
+import CategoryModel from '../models/CategoryModel'
+
 const create = async (req) => {
   const body = req.body
-  const data = await ProductModel.create(body)
+  const data = await CategoryModel.create(body)
   return data
 }
 const update = (req) => {

@@ -1,5 +1,8 @@
+import InventoryModel  from "../models/InventoryModel"
 const create = async (req) => {
-  return 'Login'
+    let body = req.body
+    let data = await InventoryModel.create(body)
+  return data
 }
 const update = (req) => {
   return 'Get Me'
@@ -13,7 +16,7 @@ const getList = (req) => {
 const getDetail = (req) => {
   return 'Logout'
 }
-export {
+export default {
   create,
   update,
   remove,

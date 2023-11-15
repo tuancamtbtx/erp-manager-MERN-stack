@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
 
 const { Schema } = mongoose
+
 const CustomerSchema = new Schema({
-  username: {
+  fullname: {
     type: String,
     required: true
   },

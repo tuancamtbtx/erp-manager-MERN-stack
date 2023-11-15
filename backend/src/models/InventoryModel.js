@@ -1,18 +1,35 @@
 import mongoose from 'mongoose'
 
 const { Schema } = mongoose
-const AdminSchema = new Schema({
-  product_id: {
-    type: String,
-    required: true
-  },
-  stock: {
-    type: int,
-    required: true
-  },
+const InventorySchema = new Schema({
+    name: {
+        type: "String",
+        required: true
+    },
   createdBy: {
     type: String,
     required: true
+  },
+  productId: {
+    type: Schema.ObjectId,
+    required: true,
+    ref: 'product'
+  },
+  categoryId: {
+    type: Schema.ObjectId,
+    required: true,
+    ref: 'category'
+  },
+  quantity: {
+    type: Number,
+    required: true
+  },
+    unitPrice: {
+        type: Number,
+        required: true
+    },
+  description: {
+    type: String
   },
   createdAt: {
     type: Date,
@@ -24,10 +41,10 @@ const AdminSchema = new Schema({
   }
 })
 
-AdminSchema.virtual('id').get(function () {
+InventorySchema.virtual('id').get(function () {
   return this._id
 })
 
-UserSchema.set('toJSON', { virtuals: true })
+InventorySchema.set('toJSON', { virtuals: true })
 
-export default mongoose.model('admin', AdminSchema)
+export default mongoose.model('inventory', InventorySchema)

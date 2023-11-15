@@ -7,14 +7,15 @@ const ProductSchema = new Schema({
     required: true
   },
   category_id: {
-    type: String,
-    required: true
+    type: Schema.ObjectId,
+    required: true,
+    ref: 'category'
   },
-  description:{
-    type: String,
+  description: {
+    type: String
   },
-  price: {
-    type: int,
+  unit_cost: {
+    type: Number,
     required: true
   },
   createdBy: {

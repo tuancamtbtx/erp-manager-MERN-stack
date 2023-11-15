@@ -1,16 +1,17 @@
 import mongoose from 'mongoose'
-import config from '@mlplatform/brain/config'
+import AppConfig from '../configs/AppConfig'
 
-import { logger } from '@mlplatform/brain/utils/loggerUtils'
+import { logger } from './loggerUtils'
 
 const connect = () => {
+  console.log(AppConfig.MONGODB_ADMIN_OPTIONS)
   mongoose.connect(
-    config.MONGODB_ADMIN_OPTIONS.database,
-    config.MONGODB_ADMIN_OPTIONS.db_options, (err) => {
-      if (err) throw err
-      logger.info('connect success !!!')
-    }
-  )
+    AppConfig.MONGODB_ADMIN_OPTIONS.database,
+    AppConfig.MONGODB_ADMIN_OPTIONS.db_options
+  ).catch(err => {
+    if (err) throw err
+    logger.info('connect success !!!')
+  })
 }
 const manageConnectDatabase = () => {
   const db = mongoose.connection
@@ -22,7 +23,7 @@ const manageConnectDatabase = () => {
     mongoose.disconnect()
   })
   db.on('connected', () =>
-    logger.info('Mongoose default connection open to: ' + config.MONGODB_ADMIN_OPTIONS.database)
+    logger.info('Mongoose default connection open to: ' + AppConfig.MONGODB_ADMIN_OPTIONS.database)
   )
   db.once('open', () =>
     logger.info('MongoDB connection opened!')

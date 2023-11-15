@@ -13,7 +13,7 @@ const getList = (req) => {
 const getDetail = (req) => {
   return 'Logout'
 }
-export {
+export default {
   create,
   update,
   remove,
