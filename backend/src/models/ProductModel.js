@@ -14,7 +14,14 @@ const ProductSchema = new Schema({
   description: {
     type: String
   },
+  weight: {
+    type: Number
+  },
   unit_cost: {
+    type: Number,
+    required: true
+  },
+  unit_price: {
     type: Number,
     required: true
   },

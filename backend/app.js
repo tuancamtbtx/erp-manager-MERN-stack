@@ -24,7 +24,7 @@ const configNameSpace = {
 }
 configNameSpace.siteNameSpace(
   RouterUtils.mapping('/admin', Routers.AdminRouter),
-  RouterUtils.mapping('/imports', Routers.HistoryImportProductRouter),
+  RouterUtils.mapping('/imports', Routers.ImportProductRouter),
   RouterUtils.mapping('/products', Routers.ProductRouter),
   RouterUtils.mapping('/categories', Routers.CategoryRouter),
   RouterUtils.mapping('/orders', Routers.OrderRouter),

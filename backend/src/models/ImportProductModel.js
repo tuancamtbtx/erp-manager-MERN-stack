@@ -2,17 +2,13 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 
-const HistoryImportProductSchema = new Schema({
+const ImportProductSchema = new Schema({
   product_id: {
     type: Schema.ObjectId,
     required: true,
     ref: 'product'
   },
   quantity: {
-    type: Number,
-    required: true
-  },
-  amount: {
     type: Number,
     required: true
   },
@@ -26,10 +22,10 @@ const HistoryImportProductSchema = new Schema({
   }
 })
 
-HistoryImportProductSchema.virtual('id').get(function () {
+ImportProductSchema.virtual('id').get(function () {
   return this._id
 })
 
-HistoryImportProductSchema.set('toJSON', { virtuals: true })
+ImportProductSchema.set('toJSON', { virtuals: true })
 
-export default mongoose.model('history_import_product', HistoryImportProductSchema)
+export default mongoose.model('import_product', ImportProductSchema)

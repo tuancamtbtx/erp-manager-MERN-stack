@@ -1,7 +1,7 @@
-import InventoryModel  from "../models/InventoryModel"
+import InventoryModel from '../models/InventoryModel'
 const create = async (req) => {
-    let body = req.body
-    let data = await InventoryModel.create(body)
+  const body = req.body
+  const data = await InventoryModel.create(body)
   return data
 }
 const update = (req) => {

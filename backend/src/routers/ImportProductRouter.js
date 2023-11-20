@@ -1,11 +1,11 @@
 import express from 'express'
 import { showResponseToClient } from '../utils/responseUtils'
 import HttpStatusCode from '../constants/HttpStatusCode'
-import HistoryImportProductHandler from '../controllers/HistoryImportProductHandler'
+import ImportProductHandler from '../controllers/ImportProductHandler'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
-  const rs = await HistoryImportProductHandler.create(req)
+  const rs = await ImportProductHandler.get(req)
   console.log(rs)
   const data = {
     status: true,
@@ -13,5 +13,8 @@ route.get('/', async (req, res) => {
   }
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })
-
+route.post('/', async (req, res) => {
+  const data = await ImportProductHandler.create(req)
+  showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
+})
 export default route

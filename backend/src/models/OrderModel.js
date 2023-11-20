@@ -13,11 +13,11 @@ const OrderSchema = new Schema({
   },
   orderItems: [
     {
-        id: {
-            type: Schema.ObjectId,
-            required: true,
-            ref: 'order_items'
-        },
+      id: {
+        type: Schema.ObjectId,
+        required: true,
+        ref: 'order_items'
+      }
     }
   ],
   amount: {
