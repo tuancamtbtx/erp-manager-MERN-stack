@@ -6,10 +6,7 @@ import HttpStatusCode from '../constants/HttpStatusCode'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
-  const data = {
-    status: true,
-    message: 'service is running'
-  }
+  const data = await CategoryHandler.getList(req)
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })
 route.post('/', async (req, res) => {

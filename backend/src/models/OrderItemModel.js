@@ -2,12 +2,7 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 const OrderItemSchema = new Schema({
-  order_id: {
-    type: Schema.ObjectId,
-    required: true,
-    ref: 'orders'
-  },
-  product_id: {
+  productId: {
     type: Schema.ObjectId,
     required: true
   },
@@ -18,7 +13,7 @@ const OrderItemSchema = new Schema({
   discount: {
     type: Number
   },
-  unit_cost: {
+  unitPrice: {
     type: Number,
     required: true
   },
@@ -36,6 +31,6 @@ OrderItemSchema.virtual('id').get(function () {
   return this._id
 })
 
-OrderSchema.set('toJSON', { virtuals: true })
+OrderItemSchema.set('toJSON', { virtuals: true })
 
 export default mongoose.model('order_items', OrderItemSchema)

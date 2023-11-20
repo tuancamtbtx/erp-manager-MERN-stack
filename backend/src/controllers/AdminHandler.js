@@ -1,10 +1,16 @@
-import CategoryModel from '../models/CategoryModel'
+import AdminModel from '../models/AdminModel'
 import Pagination from '../utils/pagination'
+import bcrypt from '../utils/bcrypt'
 
 const create = async (req) => {
-  const body = req.body
-  body.createdBy = "Tuan Cam"
-  const data = await CategoryModel.create(body)
+  let password = bcrypt.generate(req.body.password)
+  let body = {
+    username: req.body.username,
+    password: password,
+    createdBy: "root",
+    email: req.body.email
+  }
+  const data = await AdminModel.create(body)
   return data
 }
 const update = (req) => {
@@ -14,9 +20,9 @@ const remove = (req) => {
   return 'Logout'
 }
 const getList = async (req) => {
-  let total = await CategoryModel.countDocuments({})
+  let total = await AdminModel.countDocuments({})
   let pageUtil = new Pagination(req, total)
-  let data = await CategoryModel.find({})
+  let data = await AdminModel.find({})
   .skip(pageUtil.minIndex)
   .limit(pageUtil.itemPerPage)
   return {
@@ -25,9 +31,12 @@ const getList = async (req) => {
   }
 }
 const getDetail = (req) => {
-  return 'Logout'
+}
+const login = async() => {
+    return 'Login'
 }
 export default {
+  login,
   create,
   update,
   remove,

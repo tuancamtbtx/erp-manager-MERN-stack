@@ -1,15 +1,15 @@
 import express from 'express'
-import { showResponseToClient } from '@mlplatform/brain/utils/responseUtils'
+import { showResponseToClient } from '../utils/responseUtils'
 import HttpStatusCode from '../constants/HttpStatusCode'
-
+import CustomerHandler from '../controllers/CustomerHandler'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
-  const data = {
-    status: true,
-    message: 'service is running'
-  }
+  let data = await CustomerHandler.getList(req)
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })
-
+route.post('/', async (req, res) => {
+  let data = await CustomerHandler.create(req)
+  showResponseToClient(null, data, HttpStatusCode.HTTP_CREATED_SUCCESS, res)
+})
 export default route

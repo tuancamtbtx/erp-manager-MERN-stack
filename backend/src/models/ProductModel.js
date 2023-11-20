@@ -6,10 +6,18 @@ const ProductSchema = new Schema({
     type: String,
     required: true
   },
-  category_id: {
+  code: {
+    type: String,
+    required: true
+  },
+  categoryId: {
     type: Schema.ObjectId,
     required: true,
-    ref: 'category'
+    ref: 'categories'
+  },
+  discount: {
+    type: Number,
+    default: 0
   },
   description: {
     type: String
@@ -17,11 +25,15 @@ const ProductSchema = new Schema({
   weight: {
     type: Number
   },
-  unit_cost: {
+  unitCost: {
     type: Number,
     required: true
   },
-  unit_price: {
+  unitPrice: {
+    type: Number,
+    required: true
+  },
+  status: {
     type: Number,
     required: true
   },

@@ -9,15 +9,12 @@ const CustomerSchema = new Schema({
   },
   email: {
     type: String,
-    required: true
   },
   phone: {
     type: String,
-    required: true
   },
-  location: {
+  address: {
     type: String,
-    required: true
   },
   createdAt: {
     type: Date,
@@ -35,4 +32,4 @@ CustomerSchema.virtual('id').get(function () {
 
 CustomerSchema.set('toJSON', { virtuals: true })
 
-export default mongoose.model('admin', CustomerSchema)
+export default mongoose.model('customers', CustomerSchema)

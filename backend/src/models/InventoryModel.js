@@ -2,10 +2,6 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 const InventorySchema = new Schema({
-  name: {
-    type: 'String',
-    required: true
-  },
   createdBy: {
     type: String,
     required: true
@@ -13,14 +9,11 @@ const InventorySchema = new Schema({
   productId: {
     type: Schema.ObjectId,
     required: true,
-    ref: 'product'
+    ref: 'products'
   },
   quantity: {
     type: Number,
     required: true
-  },
-  description: {
-    type: String
   },
   createdAt: {
     type: Date,

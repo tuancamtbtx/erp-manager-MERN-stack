@@ -4,11 +4,13 @@ import ImportProductRouter from './ImportProductRouter'
 import ProductRouter from './ProductRouter'
 import CategoryRouter from './CategoryRouter'
 import OrderRouter from './OrderRouter'
+import CustomerRouter from './CustomerRouter'
 export default {
   AdminRouter,
   InventoryRouter,
   ImportProductRouter,
   ProductRouter,
   CategoryRouter,
-  OrderRouter
+  OrderRouter,
+  CustomerRouter
 }

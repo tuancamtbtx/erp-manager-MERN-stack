@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 const OrderSchema = new Schema({
-  customer_id: {
+  customerId: {
     type: Schema.ObjectId,
     required: true,
     ref: 'customers'
@@ -11,20 +11,16 @@ const OrderSchema = new Schema({
     type: Number,
     required: true
   },
-  orderItems: [
-    {
-      id: {
-        type: Schema.ObjectId,
-        required: true,
-        ref: 'order_items'
-      }
-    }
-  ],
+  orderItems: [],
   amount: {
     type: Number,
     required: true
   },
-  profit: {
+  fee: {
+    type: Number,
+    required: true
+  },
+  income: {
     type: Number,
     required: true
   },
