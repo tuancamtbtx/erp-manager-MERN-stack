@@ -16,14 +16,14 @@ route.post('/', async (req, res) => {
 route.put('/:categoryId', async (req, res) => {
   const data = {
     status: true,
-    message: 'service is running'
+    message: 'currently not supported'
   }
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })
 route.delete('/:categoryId', async (req, res) => {
   const data = {
     status: true,
-    message: 'service is running'
+    message: 'currently not supported'
   }
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })

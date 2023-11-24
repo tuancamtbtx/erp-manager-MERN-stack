@@ -9,7 +9,7 @@ route.get('/', async (req, res) => {
   console.log(rs)
   const data = {
     status: true,
-    message: 'service is running'
+    message: 'currently not supported'
   }
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })

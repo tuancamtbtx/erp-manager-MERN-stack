@@ -2,6 +2,11 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 const OrderItemSchema = new Schema({
+  status: {
+    type: Number,
+    default: 1,
+    required: true
+  },
   productId: {
     type: Schema.ObjectId,
     required: true

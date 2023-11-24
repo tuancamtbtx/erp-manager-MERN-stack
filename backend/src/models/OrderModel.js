@@ -20,7 +20,7 @@ const OrderSchema = new Schema({
     type: Number,
     required: true
   },
-  income: {
+  revenue: {
     type: Number,
     required: true
   },

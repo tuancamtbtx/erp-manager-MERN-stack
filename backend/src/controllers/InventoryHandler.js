@@ -9,6 +9,11 @@ const create = async (req) => {
   if (!product) {
     throw new Error('Product not found')
   }
+  let inventoryCheck = await InventoryModel.findOne({ productId: productId })
+  if(inventoryCheck){ 
+    let data = await InventoryModel.updateOne({ productId: productId }, { $inc: { quantity: body.quantity } })
+    return data
+  }
   const data = await InventoryModel.create(body)
   return data
 }

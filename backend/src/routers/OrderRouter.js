@@ -5,24 +5,32 @@ import OrderHandler from '../controllers/OrderHandler'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
-  const data = await OrderHandler.getList(req)
-  showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
+  try {
+    const data = await OrderHandler.getList(req)
+    showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
+  } catch (err) {
+    showResponseToClient(err, null, HttpStatusCode.HTTP_BAD_REQUEST, res)
+  }
 })
 route.post('/', async (req, res) => {
-  const data = await OrderHandler.create(req)
-  showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
+  try {
+    const data = await OrderHandler.create(req)
+    showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
+  } catch (err) {
+    showResponseToClient(err, null, HttpStatusCode.HTTP_BAD_REQUEST, res)
+  }
 })
 route.put('/:orderId', async (req, res) => {
   const data = {
     status: true,
-    message: 'service is running'
+    message: 'currently not supported'
   }
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })
 route.delete('/:orderId', async (req, res) => {
   const data = {
     status: true,
-    message: 'service is running'
+    message: 'currently not supported'
   }
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })

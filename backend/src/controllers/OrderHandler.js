@@ -2,9 +2,10 @@ import OrderModel from '../models/OrderModel'
 import OrderItemModel from '../models/OrderItemModel'
 import CustomerModel from '../models/CustomerModel'
 import ProductModel from '../models/ProductModel'
+import InventoryModel from '../models/InventoryModel'
 import OrderStatusCode from '../constants/OrderStatusCode'
 import Pagination from '../utils/pagination'
-
+import OrderItemStatusCode from '../constants/OrderItemStatusCode'
 const create = async (req) => {
   const body = req.body
   const customerId = body.customerId
@@ -14,38 +15,59 @@ const create = async (req) => {
     throw new Error('Customer not found')
   }
   const orderItemIds = []
-  let amount = 0
+  let totalCost = 0
+  let revenue = 0
   for (let i = 0; i < items.length; i++) {
     const item = items[i]
     const productId = item.productId
     const product = await ProductModel.findById(productId)
+    // check inventory
+    if (!product) {
+      throw new Error('Product not found')
+    }
+    const inventory = await InventoryModel.findOne({ productId: productId })
+
+    if (!inventory || inventory.quantity < item.quantity) {
+      throw new Error(`${product.name} is out of stock`)
+    }
     const orderItemBody = {
       productId: productId,
       quantity: item.quantity,
-      unitPrice: product.unit_price,
-      discount: product.discount
+      unitPrice: product.unitPrice,
+      discount: product.discount,
+      status: OrderItemStatusCode.PENDING
     }
     const discount = product.discount || 0
-    amount += (product.unit_price * (100 - discount) / 100) * item.quantity
+    totalCost += (product.unitCost * (100 - discount) / 100) * item.quantity
+    revenue += (product.unitCost * (100 - discount) / 100 - product.unitPrice) * item.quantity
     const orderItem = await OrderItemModel.create(orderItemBody)
     orderItemIds.push(orderItem._id)
   }
+  const amount = totalCost + body.fee
   const bodyOrder = {
     customerId: customerId,
     orderItems: orderItemIds,
     amount: amount,
     fee: body.fee,
-    income: 0,
+    revenue: revenue,
     status: OrderStatusCode.PENDING
   }
   const data = await OrderModel.create(bodyOrder)
   return data
 }
-const update = (req) => {
-  return 'Get Me'
+const update = async (req) => {
+  const id = req.params.orderId
+  const body = req.body
+  const order = await OrderModel.findById(id)
+  if (!order) {
+    throw new Error('Order not found')
+  }
+  const data = await OrderModel.updateOne({ _id: id }, body)
+  return data
 }
 const remove = (req) => {
-  return 'Logout'
+  const id = req.params.orderId
+  return OrderModel.findByIdAndDelete(id)
 }
 const getList = async (req) => {
   const total = await OrderModel.countDocuments({})

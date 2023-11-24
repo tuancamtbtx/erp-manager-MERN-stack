@@ -36,11 +36,7 @@ const manageConnectDatabase = () => {
     connect()
   })
   connect()
-  logger.info(`Mongo connection Pooling:
-		- Connected: ${db.states.connected}
-		- Disconnecting: ${db.states.disconnecting}
-		- Disconnected: ${db.states.disconnected}
-		`
+  logger.info(`Mongo connection Pooling:\n- Connected: ${db.states.connected}\n- Disconnecting: ${db.states.disconnecting}\n- Disconnected: ${db.states.disconnected}`
   )
   process.on('SIGINT', function () {
     mongoose.connection.close(() => {

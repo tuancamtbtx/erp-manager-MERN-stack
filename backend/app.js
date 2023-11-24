@@ -5,7 +5,7 @@ import AppConfig from './src/configs/AppConfig'
 import RouterUtils from './src/utils/routerUtils'
 import Routers from './src/routers'
 
-import { error404Forwarder, errorDebugMiddleware, errorReleaseMiddleware } from './src/middlewares/errorMiddlerware'
+import { error404Forwarder } from './src/middlewares/errorMiddlerware'
 import corsMiddleware from './src/middlewares/corsMiddleware'
 import { logger } from './src/utils/loggerUtils'
 import { manageConnectDatabase } from './src/utils/mongoUtils'
