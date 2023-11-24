@@ -6,7 +6,7 @@ const create = async (req) => {
   const body = req.body
   const productId = body.productId
   const product = await ProductModel.findById(productId)
-  if(!product) {
+  if (!product) {
     throw new Error('Product not found')
   }
   const data = await InventoryModel.create(body)
@@ -19,10 +19,10 @@ const remove = (req) => {
   return 'Logout'
 }
 const getList = async (req) => {
-  let total = await InventoryModel.countDocuments({})
-  let pageUtil = new Pagination(req, total)
-  let data = await InventoryModel.aggregate([
-    {$match: {}},
+  const total = await InventoryModel.countDocuments({})
+  const pageUtil = new Pagination(req, total)
+  const data = await InventoryModel.aggregate([
+    { $match: {} },
     {
       $lookup: {
         from: 'products',
@@ -31,8 +31,8 @@ const getList = async (req) => {
         as: 'product'
       }
     },
-    {$limit: pageUtil.itemPerPage},
-    {$skip: pageUtil.minIndex}
+    { $limit: pageUtil.itemPerPage },
+    { $skip: pageUtil.minIndex }
   ])
   return {
     pagination: pageUtil.getPagination(),

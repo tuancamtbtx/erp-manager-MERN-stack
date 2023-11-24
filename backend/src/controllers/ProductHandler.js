@@ -14,10 +14,10 @@ const remove = (req) => {
   return 'Logout'
 }
 const getList = async (req) => {
-  let total = await ProductModel.countDocuments({})
-  let pageUtil = new Pagination(req, total)
-  let data = await ProductModel.aggregate([
-    {$match: {}},
+  const total = await ProductModel.countDocuments({})
+  const pageUtil = new Pagination(req, total)
+  const data = await ProductModel.aggregate([
+    { $match: {} },
     {
       $lookup: {
         from: 'categories',
@@ -26,18 +26,23 @@ const getList = async (req) => {
         as: 'category'
       }
     },
-    {$unwind: '$category'},
+    { $unwind: '$category' },
     {
       $project: {
-        discount: 1, category: "$category",
-        description: 1, weight: 1,
-        unitCost: 1,unitPrice:1,status:1,
-        createdBy: 1, 
-        createdAt:1, updatedAt:1,
+        discount: 1,
+        category: '$category',
+        description: 1,
+        weight: 1,
+        unitCost: 1,
+        unitPrice: 1,
+        status: 1,
+        createdBy: 1,
+        createdAt: 1,
+        updatedAt: 1
       }
     },
-    {$limit: pageUtil.itemPerPage},
-    {$skip: pageUtil.minIndex}
+    { $limit: pageUtil.itemPerPage },
+    { $skip: pageUtil.minIndex }
   ])
   return {
     pagination: pageUtil.getPagination(),

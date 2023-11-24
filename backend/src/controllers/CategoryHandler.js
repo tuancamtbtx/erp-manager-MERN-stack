@@ -3,7 +3,7 @@ import Pagination from '../utils/pagination'
 
 const create = async (req) => {
   const body = req.body
-  body.createdBy = "Tuan Cam"
+  body.createdBy = 'Tuan Cam'
   const data = await CategoryModel.create(body)
   return data
 }
@@ -14,11 +14,11 @@ const remove = (req) => {
   return 'Logout'
 }
 const getList = async (req) => {
-  let total = await CategoryModel.countDocuments({})
-  let pageUtil = new Pagination(req, total)
-  let data = await CategoryModel.find({})
-  .skip(pageUtil.minIndex)
-  .limit(pageUtil.itemPerPage)
+  const total = await CategoryModel.countDocuments({})
+  const pageUtil = new Pagination(req, total)
+  const data = await CategoryModel.find({})
+    .skip(pageUtil.minIndex)
+    .limit(pageUtil.itemPerPage)
   return {
     pagination: pageUtil.getPagination(),
     data: data

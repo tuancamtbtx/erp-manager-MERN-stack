@@ -3,11 +3,11 @@ import Pagination from '../utils/pagination'
 import bcrypt from '../utils/bcrypt'
 
 const create = async (req) => {
-  let password = bcrypt.generate(req.body.password)
-  let body = {
+  const password = bcrypt.generate(req.body.password)
+  const body = {
     username: req.body.username,
     password: password,
-    createdBy: "root",
+    createdBy: 'root',
     email: req.body.email
   }
   const data = await AdminModel.create(body)
@@ -20,11 +20,11 @@ const remove = (req) => {
   return 'Logout'
 }
 const getList = async (req) => {
-  let total = await AdminModel.countDocuments({})
-  let pageUtil = new Pagination(req, total)
-  let data = await AdminModel.find({})
-  .skip(pageUtil.minIndex)
-  .limit(pageUtil.itemPerPage)
+  const total = await AdminModel.countDocuments({})
+  const pageUtil = new Pagination(req, total)
+  const data = await AdminModel.find({})
+    .skip(pageUtil.minIndex)
+    .limit(pageUtil.itemPerPage)
   return {
     pagination: pageUtil.getPagination(),
     data: data
@@ -32,8 +32,8 @@ const getList = async (req) => {
 }
 const getDetail = (req) => {
 }
-const login = async() => {
-    return 'Login'
+const login = async () => {
+  return 'Login'
 }
 export default {
   login,

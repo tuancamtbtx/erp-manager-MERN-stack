@@ -29,8 +29,7 @@ configNameSpace.siteNameSpace(
   RouterUtils.mapping('/categories', Routers.CategoryRouter),
   RouterUtils.mapping('/orders', Routers.OrderRouter),
   RouterUtils.mapping('/inventories', Routers.InventoryRouter),
-  RouterUtils.mapping('/customers', Routers.CustomerRouter),
-
+  RouterUtils.mapping('/customers', Routers.CustomerRouter)
 
 )
 app.use(error404Forwarder)

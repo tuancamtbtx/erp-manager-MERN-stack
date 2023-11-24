@@ -5,11 +5,11 @@ import CustomerHandler from '../controllers/CustomerHandler'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
-  let data = await CustomerHandler.getList(req)
+  const data = await CustomerHandler.getList(req)
   showResponseToClient(null, data, HttpStatusCode.HTTP_SUCCESS, res)
 })
 route.post('/', async (req, res) => {
-  let data = await CustomerHandler.create(req)
+  const data = await CustomerHandler.create(req)
   showResponseToClient(null, data, HttpStatusCode.HTTP_CREATED_SUCCESS, res)
 })
 export default route

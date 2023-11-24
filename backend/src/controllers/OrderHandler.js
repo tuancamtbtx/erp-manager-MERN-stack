@@ -8,29 +8,29 @@ import Pagination from '../utils/pagination'
 const create = async (req) => {
   const body = req.body
   const customerId = body.customerId
-  const items =  body.items
-  let customer = await CustomerModel.findById(customerId)
-  if(!customer) {
+  const items = body.items
+  const customer = await CustomerModel.findById(customerId)
+  if (!customer) {
     throw new Error('Customer not found')
   }
-  let orderItemIds = []
+  const orderItemIds = []
   let amount = 0
-  for(let i = 0; i < items.length; i++) {
-    let item = items[i]
-    let productId = item.productId
-    let product = await ProductModel.findById(productId)
-    let orderItemBody = {
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    const productId = item.productId
+    const product = await ProductModel.findById(productId)
+    const orderItemBody = {
       productId: productId,
       quantity: item.quantity,
       unitPrice: product.unit_price,
-      discount: product.discount,
+      discount: product.discount
     }
-    let discount = product.discount || 0
+    const discount = product.discount || 0
     amount += (product.unit_price * (100 - discount) / 100) * item.quantity
-    let orderItem = await OrderItemModel.create(orderItemBody)
+    const orderItem = await OrderItemModel.create(orderItemBody)
     orderItemIds.push(orderItem._id)
   }
-  let bodyOrder = {
+  const bodyOrder = {
     customerId: customerId,
     orderItems: orderItemIds,
     amount: amount,
@@ -48,41 +48,43 @@ const remove = (req) => {
   return 'Logout'
 }
 const getList = async (req) => {
-  let total = await OrderModel.countDocuments({})
-  let pageUtil = new Pagination(req, total)
-  let data = await OrderModel.aggregate([
-    {$match: {}},
-    { "$unwind": "$orderItems" },
-    { 
-      "$lookup": {
-        "from": "order_items",
-        "localField": "orderItems",
-        "foreignField": "_id",
-        "as": "orderItemObjects"
-   }},
-   { "$unwind": "$orderItemObjects" },
-   {
-    $lookup: {
-      from: 'customers',
-      localField: 'customerId',
-      foreignField: '_id',
-      as: 'customer'
-    }
-  },
-   {  
-    "$group": {
-      "_id": "$_id",
-      "customer": { "$first": "$customer" },
-      "orderItems": { "$push": "$orderItemObjects" },
-      "amount": { "$first": "$amount" },
-      "fee": { "$first": "$fee" },
-      "income": { "$first": "$income" },
-      "status": { "$first": "$status" },
-      "createdAt": { "$first": "$createdAt" },
-      "updatedAt": { "$first": "$updatedAt" },
-      }},
-    {$limit: pageUtil.itemPerPage},
-    {$skip: pageUtil.minIndex}
+  const total = await OrderModel.countDocuments({})
+  const pageUtil = new Pagination(req, total)
+  const data = await OrderModel.aggregate([
+    { $match: {} },
+    { $unwind: '$orderItems' },
+    {
+      $lookup: {
+        from: 'order_items',
+        localField: 'orderItems',
+        foreignField: '_id',
+        as: 'orderItemObjects'
+      }
+    },
+    { $unwind: '$orderItemObjects' },
+    {
+      $lookup: {
+        from: 'customers',
+        localField: 'customerId',
+        foreignField: '_id',
+        as: 'customer'
+      }
+    },
+    {
+      $group: {
+        _id: '$_id',
+        customer: { $first: '$customer' },
+        orderItems: { $push: '$orderItemObjects' },
+        amount: { $first: '$amount' },
+        fee: { $first: '$fee' },
+        income: { $first: '$income' },
+        status: { $first: '$status' },
+        createdAt: { $first: '$createdAt' },
+        updatedAt: { $first: '$updatedAt' }
+      }
+    },
+    { $limit: pageUtil.itemPerPage },
+    { $skip: pageUtil.minIndex }
   ])
   return {
     pagination: pageUtil.getPagination(),

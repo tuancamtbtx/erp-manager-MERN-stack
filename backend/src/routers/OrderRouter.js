@@ -1,7 +1,7 @@
 import express from 'express'
 import { showResponseToClient } from '../utils/responseUtils'
 import HttpStatusCode from '../constants/HttpStatusCode'
-import OrderHandler  from '../controllers/OrderHandler'
+import OrderHandler from '../controllers/OrderHandler'
 const route = express.Router()
 
 route.get('/', async (req, res) => {
